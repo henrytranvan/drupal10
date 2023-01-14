@@ -1,0 +1,25 @@
+name: Install drupal 10
+
+on: [push]
+
+env:
+  DOCKSAL_SSH_AGENT_USE_HOST: 0
+  DOCKSAL_DNS_DISABLED: 1
+
+jobs:
+  install:
+    name: Verify drupal 10 installs
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Install Docksal
+        run: curl -fsSL https://get.docksal.io | bash
+      - name: fin sysinfo
+        run: fin sysinfo
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install drupal 10
+        run: fin init
+      - name: Test drupal 10
+        run: fin test
+      - name: fin config
+        run: fin config
